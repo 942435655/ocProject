@@ -1,0 +1,51 @@
+﻿遇到的问题 ：
+
+三端分离：
+
+主页   后端管理    微信站 
+
+PC      CMS         M站
+
+单一应用的架构    把所有的项目柔和在一起部署 
+缺点： 
+对数据库的访问 （ORM）的压力增大  
+应用升级互相影响   如果升级了sms 这时候对于 pc 以及 m站 都是不可以使用的 
+随着业务的增长  项目结构会越来越复杂   
+访问量增大的时候   单一的应用的瓶颈无法分开处理 
+
+三端分离的架构   拆分项目 分别部署   还可以拆分特别的业务
+优点 ：
+升级应用互不影响  （升级CMS 不会影响到PC）
+对于核心的服务可以拆分出来  可以快速响应需求
+不同应用的服务器数量可以进行灵活调整
+独立服务或应用可以灵活的拆分表 扩展
+
+service 层 和 business
+用户登录之后需要更新 用户登录时间以及Ip  可以把业务写在service层   更新两张表
+但是 business 层是需要分别处理 PC站 或者 M站 的登录
+PC 站是登录用户名和密码   而M站则是  通过微信tooken 进行登录
+
+
+Common      operator   portal  service    wechat    都依赖  project
+
+portal 依赖 common 和 service
+wechat  依赖  service
+operator 依赖  service
+service  依赖 conmmon
+
+Commmon    service  ------ jar
+portal    protal   wechat  ---  war
+
+
+
+阿里云的服务器
+做了批量更新 导致很多的数据被修改 所以在数据库谨慎使用删除以及批量更新
+
+
+
+
+
+
+
+
+
